@@ -5,7 +5,7 @@ import { Uri } from 'vscode';
 import { VSCodeUI } from './vscode-ui';
 
 export class Project {
-    directories: string[] = new Array('.vscode', 'output', 'include', 'lib', 'src');
+    directories: string[] = new Array('.vscode', 'output', 'bin', 'include', 'lib', 'src');
 
     private context: vscode.ExtensionContext;
 
@@ -24,6 +24,7 @@ export class Project {
             fs.writeFileSync(path.join(location, '.vscode', 'tasks.json'), fs.readFileSync(tasksPath, 'utf-8'));
             fs.writeFileSync(path.join(location, '.vscode', 'launch.json'), fs.readFileSync(launchPath, 'utf-8'));
             fs.writeFileSync(path.join(location, 'src', `main.${type}`), fs.readFileSync(mainPath, 'utf-8'));
+            fs.writeFileSync(path.join(location,'bin', `main.${type}`), fs.readFileSync(mainPath, 'utf-8'));
             fs.writeFileSync(path.join(location, 'Makefile'), fs.readFileSync(makefilePath, 'utf-8'));
 
             vscode.workspace.openTextDocument(path.join(location, 'src', 'main.cpp'))
